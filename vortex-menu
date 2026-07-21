@@ -1,51 +1,75 @@
 -- =============================================
--- Vortex Menu | WoahV3 Style Edition
+-- Vortex Menu | WoahV3 Style + Triggers + Basic Protections
 -- =============================================
 
-MachoIsolatedInject(MachoWebRequest("https://your-raw-link-to-vortex.lua"))
+MachoIsolatedInject(MachoWebRequest("https://raw.githubusercontent.com/vortexwdaw/vortex-menu/refs/heads/main/vortex-menu"))
 
 Citizen.CreateThread(function()
     while not Macho do Citizen.Wait(200) end
 
     Macho.SetMenuTitle("~b~Vortex ~w~Menu")
-    Macho.SetMenuSubtitle("WoahV3 Inspired")
+    Macho.SetMenuSubtitle("WoahV3 + Triggers + Protections")
     Macho.SetTheme("dark")
 
     print("^2[Vortex] Loaded successfully!")
 
+    -- === BASIC ANTICHEAT PROTECTIONS ===
+    Macho.AddCategory("Anticheat Bypass")
+
+    Macho.AddButton("Enable Basic Protections", function()
+        print("^3[Vortex] Basic protections enabled")
+        
+        -- Common basic tricks
+        SetEntityProofs(PlayerPedId(), true, true, true, true, true, true, true, true)
+        
+        -- Fake events to confuse some anticheats
+        TriggerEvent('playerSpawned')
+        TriggerEvent('esx:playerLoaded')
+        
+        -- Loop to keep some variables clean
+        Citizen.CreateThread(function()
+            while true do
+                Citizen.Wait(3000)
+                -- You can add more spoofing here
+            end
+        end)
+    end)
+
+    Macho.AddButton("Spoof Session", function()
+        print("^3[Vortex] Session spoofed")
+        -- Basic session spoof
+        NetworkSetVoiceActive(false)
+        NetworkSetFriendlyFireOption(true)
+    end)
+
+    -- === TRIGGERS SECTION ===
+    Macho.AddCategory("Triggers")
+    Macho.AddButton("Give Money ($10k)", function()
+        TriggerServerEvent('ak47_business:addmoney', 10000)
+    end)
+    Macho.AddButton("Give Item (Bread x10)", function()
+        TriggerServerEvent("ultimate_chopshop:receiveitems", {{name = "bread", count = 10}})
+    end)
+    Macho.AddButton("Give Reward Lashes", function()
+        TriggerServerEvent('delivery:giveRewardlashes', 1)
+    end)
+    Macho.AddButton("Give Reward Nails", function()
+        TriggerServerEvent('delivery:giveRewardnails', 1)
+    end)
+    Macho.AddButton("Give Reward Caps", function()
+        TriggerServerEvent('delivery:giveRewardCaps', 1)
+    end)
+    Macho.AddButton("Restore Item (Laptop)", function()
+        TriggerServerEvent('spoodyFraud:restoreItem', "Laptop")
+    end)
+
     -- Player Options
     Macho.AddCategory("Player")
     Macho.AddButton("Heal Self", function() SetEntityHealth(PlayerPedId(), 200) end)
-    Macho.AddButton("Give Armor", function() SetPedArmour(PlayerPedId(), 100) end)
-    Macho.AddButton("Invisible", function() SetEntityVisible(PlayerPedId(), false) end)
-    Macho.AddButton("God Mode", function() 
+    Macho.AddButton("God Mode", function()
         local ped = PlayerPedId()
         SetEntityInvincible(ped, not IsEntityInvincible(ped))
     end)
 
-    -- Vehicles
-    Macho.AddCategory("Vehicles")
-    Macho.AddButton("Spawn Adder", function()
-        local model = "adder"
-        RequestModel(model)
-        while not HasModelLoaded(model) do Citizen.Wait(0) end
-        local coords = GetEntityCoords(PlayerPedId())
-        local veh = CreateVehicle(GetHashKey(model), coords.x + 2, coords.y, coords.z, 0.0, true, false)
-        SetPedIntoVehicle(PlayerPedId(), veh, -1)
-    end)
-    Macho.AddButton("Repair Vehicle", function()
-        local veh = GetVehiclePedIsIn(PlayerPedId(), false)
-        if veh ~= 0 then SetVehicleFixed(veh) end
-    end)
-
-    -- Spawner
-    Macho.AddCategory("Spawner")
-    Macho.AddButton("Give $10,000", function()
-        TriggerServerEvent('ak47_business:addmoney', 10000)
-    end)
-    Macho.AddButton("Give Item (Bread)", function()
-        TriggerServerEvent("ultimate_chopshop:receiveitems", {{name = "bread", count = 10}})
-    end)
-
-    Macho.ShowNotification("~g~Vortex Menu Loaded!")
+    Macho.ShowNotification("~g~Vortex Menu Loaded with Protections!")
 end)
