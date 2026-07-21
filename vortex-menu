@@ -1,22 +1,2 @@
-MachoIsolatedInject(MachoWebRequest("https://raw.githubusercontent.com/vortexwdaw/vortex-menu/refs/heads/main/vortex-menu"))
-
-Citizen.CreateThread(function()
-    while not Macho do Citizen.Wait(500) end
-
-    Macho.SetMenuTitle("~b~Vortex ~w~Menu")
-    Macho.SetMenuSubtitle("Press INSERT")
-
-    print("^2[Vortex] Loaded - Press INSERT")
-
-    Macho.AddCategory("Triggers")
-    Macho.AddButton("Give Money", function()
-        TriggerServerEvent('ak47_business:addmoney', 10000)
-    end)
-
-    Macho.AddCategory("Player")
-    Macho.AddButton("Heal", function()
-        SetEntityHealth(PlayerPedId(), 200)
-    end)
-
-    Macho.ShowNotification("~g~Vortex Loaded! Press INSERT")
-end)
+print("^2Vortex Test Loaded!")
+Macho.ShowNotification("~g~Vortex Test Working")
