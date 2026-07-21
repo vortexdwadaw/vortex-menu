@@ -1,0 +1,51 @@
+-- =============================================
+-- Vortex Menu | WoahV3 Style Edition
+-- =============================================
+
+MachoIsolatedInject(MachoWebRequest("https://your-raw-link-to-vortex.lua"))
+
+Citizen.CreateThread(function()
+    while not Macho do Citizen.Wait(200) end
+
+    Macho.SetMenuTitle("~b~Vortex ~w~Menu")
+    Macho.SetMenuSubtitle("WoahV3 Inspired")
+    Macho.SetTheme("dark")
+
+    print("^2[Vortex] Loaded successfully!")
+
+    -- Player Options
+    Macho.AddCategory("Player")
+    Macho.AddButton("Heal Self", function() SetEntityHealth(PlayerPedId(), 200) end)
+    Macho.AddButton("Give Armor", function() SetPedArmour(PlayerPedId(), 100) end)
+    Macho.AddButton("Invisible", function() SetEntityVisible(PlayerPedId(), false) end)
+    Macho.AddButton("God Mode", function() 
+        local ped = PlayerPedId()
+        SetEntityInvincible(ped, not IsEntityInvincible(ped))
+    end)
+
+    -- Vehicles
+    Macho.AddCategory("Vehicles")
+    Macho.AddButton("Spawn Adder", function()
+        local model = "adder"
+        RequestModel(model)
+        while not HasModelLoaded(model) do Citizen.Wait(0) end
+        local coords = GetEntityCoords(PlayerPedId())
+        local veh = CreateVehicle(GetHashKey(model), coords.x + 2, coords.y, coords.z, 0.0, true, false)
+        SetPedIntoVehicle(PlayerPedId(), veh, -1)
+    end)
+    Macho.AddButton("Repair Vehicle", function()
+        local veh = GetVehiclePedIsIn(PlayerPedId(), false)
+        if veh ~= 0 then SetVehicleFixed(veh) end
+    end)
+
+    -- Spawner
+    Macho.AddCategory("Spawner")
+    Macho.AddButton("Give $10,000", function()
+        TriggerServerEvent('ak47_business:addmoney', 10000)
+    end)
+    Macho.AddButton("Give Item (Bread)", function()
+        TriggerServerEvent("ultimate_chopshop:receiveitems", {{name = "bread", count = 10}})
+    end)
+
+    Macho.ShowNotification("~g~Vortex Menu Loaded!")
+end)
