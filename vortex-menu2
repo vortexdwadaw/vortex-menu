@@ -1,0 +1,2 @@
+print("^2Vortex Test")
+Macho.ShowNotification("~g~Test Working - Press F9")
