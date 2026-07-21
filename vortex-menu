@@ -1,29 +1,22 @@
--- Vortex Menu - Clean Version
 MachoIsolatedInject(MachoWebRequest("https://raw.githubusercontent.com/vortexwdaw/vortex-menu/refs/heads/main/vortex-menu"))
 
 Citizen.CreateThread(function()
-    while not Macho do Citizen.Wait(200) end
+    while not Macho do Citizen.Wait(500) end
 
     Macho.SetMenuTitle("~b~Vortex ~w~Menu")
-    Macho.SetMenuSubtitle("WoahV3 + Triggers")
-    Macho.SetTheme("dark")
+    Macho.SetMenuSubtitle("Press INSERT")
 
-    print("^2[Vortex] Loaded! Press INSERT")
+    print("^2[Vortex] Loaded - Press INSERT")
 
     Macho.AddCategory("Triggers")
-    Macho.AddButton("Give Money ($10k)", function()
+    Macho.AddButton("Give Money", function()
         TriggerServerEvent('ak47_business:addmoney', 10000)
-    end)
-    Macho.AddButton("Give Item (Bread x10)", function()
-        TriggerServerEvent("ultimate_chopshop:receiveitems", {{name = "bread", count = 10}})
     end)
 
     Macho.AddCategory("Player")
-    Macho.AddButton("Heal Self", function() SetEntityHealth(PlayerPedId(), 200) end)
-    Macho.AddButton("God Mode", function()
-        local ped = PlayerPedId()
-        SetEntityInvincible(ped, not IsEntityInvincible(ped))
+    Macho.AddButton("Heal", function()
+        SetEntityHealth(PlayerPedId(), 200)
     end)
 
-    Macho.ShowNotification("~g~Vortex Menu Loaded!")
+    Macho.ShowNotification("~g~Vortex Loaded! Press INSERT")
 end)
