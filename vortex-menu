@@ -1,48 +1,15 @@
--- =============================================
--- Vortex Menu | WoahV3 Style + Triggers + Basic Protections
--- =============================================
-
+-- Vortex Menu - Clean Version
 MachoIsolatedInject(MachoWebRequest("https://raw.githubusercontent.com/vortexwdaw/vortex-menu/refs/heads/main/vortex-menu"))
 
 Citizen.CreateThread(function()
     while not Macho do Citizen.Wait(200) end
 
     Macho.SetMenuTitle("~b~Vortex ~w~Menu")
-    Macho.SetMenuSubtitle("WoahV3 + Triggers + Protections")
+    Macho.SetMenuSubtitle("WoahV3 + Triggers")
     Macho.SetTheme("dark")
 
-    print("^2[Vortex] Loaded successfully!")
+    print("^2[Vortex] Loaded! Press INSERT")
 
-    -- === BASIC ANTICHEAT PROTECTIONS ===
-    Macho.AddCategory("Anticheat Bypass")
-
-    Macho.AddButton("Enable Basic Protections", function()
-        print("^3[Vortex] Basic protections enabled")
-        
-        -- Common basic tricks
-        SetEntityProofs(PlayerPedId(), true, true, true, true, true, true, true, true)
-        
-        -- Fake events to confuse some anticheats
-        TriggerEvent('playerSpawned')
-        TriggerEvent('esx:playerLoaded')
-        
-        -- Loop to keep some variables clean
-        Citizen.CreateThread(function()
-            while true do
-                Citizen.Wait(3000)
-                -- You can add more spoofing here
-            end
-        end)
-    end)
-
-    Macho.AddButton("Spoof Session", function()
-        print("^3[Vortex] Session spoofed")
-        -- Basic session spoof
-        NetworkSetVoiceActive(false)
-        NetworkSetFriendlyFireOption(true)
-    end)
-
-    -- === TRIGGERS SECTION ===
     Macho.AddCategory("Triggers")
     Macho.AddButton("Give Money ($10k)", function()
         TriggerServerEvent('ak47_business:addmoney', 10000)
@@ -50,20 +17,7 @@ Citizen.CreateThread(function()
     Macho.AddButton("Give Item (Bread x10)", function()
         TriggerServerEvent("ultimate_chopshop:receiveitems", {{name = "bread", count = 10}})
     end)
-    Macho.AddButton("Give Reward Lashes", function()
-        TriggerServerEvent('delivery:giveRewardlashes', 1)
-    end)
-    Macho.AddButton("Give Reward Nails", function()
-        TriggerServerEvent('delivery:giveRewardnails', 1)
-    end)
-    Macho.AddButton("Give Reward Caps", function()
-        TriggerServerEvent('delivery:giveRewardCaps', 1)
-    end)
-    Macho.AddButton("Restore Item (Laptop)", function()
-        TriggerServerEvent('spoodyFraud:restoreItem', "Laptop")
-    end)
 
-    -- Player Options
     Macho.AddCategory("Player")
     Macho.AddButton("Heal Self", function() SetEntityHealth(PlayerPedId(), 200) end)
     Macho.AddButton("God Mode", function()
@@ -71,5 +25,5 @@ Citizen.CreateThread(function()
         SetEntityInvincible(ped, not IsEntityInvincible(ped))
     end)
 
-    Macho.ShowNotification("~g~Vortex Menu Loaded with Protections!")
+    Macho.ShowNotification("~g~Vortex Menu Loaded!")
 end)
